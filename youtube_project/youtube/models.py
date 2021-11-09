@@ -1,10 +1,12 @@
 from django.db import models
-from django.db.models.deletion import SET_NULL
+
 
 # Create your models here.
 class Comment(models.Model):
     comment = models.TextField(max_length=300)
     videoId = models.TextField(max_length=100)
+    likes = models.IntegerField(blank=False, null=False)
+    dislikes = models.IntegerField(blank=False, null=False)
     
     
 class Reply(models.Model):    

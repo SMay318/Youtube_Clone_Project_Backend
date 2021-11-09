@@ -5,7 +5,7 @@ from .models import Reply
 class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
-        fields = ['id','comment', 'videoId']
+        fields = ['id','comment', 'videoId', 'likes', 'dislikes']
         
 class ReplySerializer(serializers.ModelSerializer):        
     class Meta: 
