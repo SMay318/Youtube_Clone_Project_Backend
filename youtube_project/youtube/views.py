@@ -62,4 +62,30 @@ class CommentDetails(APIView):
         comment.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+class ReplyDetails(APIView):
+
+    def get_object(self,pk):
+        try:
+            return Reply.objects.get(pk=pk)
+        except Reply.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk):
+        reply = self.get_object(pk)
+        serializer = ReplySerializer(reply)
+        return Response(serializer.data)
+    
+    def put(self, request, pk):
+        reply = self.get_object(pk)
+        serializer = ReplySerializer(reply, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self,request,pk):
+        reply = self.get_object(pk)
+        reply.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 # Create your views here.
